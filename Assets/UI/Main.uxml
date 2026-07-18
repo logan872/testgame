@@ -1,0 +1,52 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/Main.uss" />
+    <ui:VisualElement name="root" class="container">
+        <ui:VisualElement name="notification-layer" picking-mode="Ignore" class="notification-layer" />
+        <ui:VisualElement name="hint-container" class="hint-container" picking-mode="Ignore">
+            <ui:VisualElement name="start-hint" class="start-hint">
+                <ui:Label name="hint-text" text="Click bottom row to shatter blocks!" class="hint-text-en" />
+                <ui:Label text="最下段をクリックしてブロックを砕け！" class="hint-text-jp" />
+            </ui:VisualElement>
+            <ui:VisualElement name="hint-notch" class="hint-notch" />
+        </ui:VisualElement>
+<ui:VisualElement name="treasure-overlay" class="treasure-overlay" picking-mode="Ignore">
+    <ui:VisualElement name="treasure-chest-image" class="treasure-chest-image" />
+    <ui:VisualElement name="dialogue-box" class="dialogue-box">
+        <ui:VisualElement name="tip-icon" class="tip-icon" />
+        <ui:VisualElement name="dialogue-text-container" class="dialogue-text-container">
+            <ui:Label name="treasure-message" text="You found a treasure chest!" class="dialogue-text-en" />
+            <ui:Label name="treasure-message-jp" text="" class="dialogue-text-jp" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:VisualElement>
+<ui:VisualElement name="hud" class="hud-bottom">
+    <ui:VisualElement name="stats-container" class="stats-group hud-fixed-size">
+        <ui:VisualElement name="hp-row" class="stat-row">
+            <ui:Label name="hp-label" text="HP:" class="stat-label" />
+            <ui:VisualElement name="hp-bar-bg" class="progress-bar-bg">
+                <ui:VisualElement name="hp-bar-fill" class="progress-bar-fill hp-fill" />
+                <ui:VisualElement name="shield-bar-fill" class="progress-bar-fill shield-fill" />
+            </ui:VisualElement>
+<ui:Label name="hp-text" text="100/100" class="stat-value" />
+        </ui:VisualElement>
+        <ui:VisualElement name="others-row" class="stat-row others-row">
+            <ui:VisualElement class="stat-sub-item">
+                <ui:Label name="shield-label" text="SHIELD:" class="stat-label" />
+                <ui:Label name="shield-text" text="0" class="stat-value" />
+            </ui:VisualElement>
+            <ui:VisualElement class="stat-sub-item">
+                <ui:Label name="exp-label" text="EXP:" class="stat-label" />
+                <ui:Label name="exp-text" text="0" class="stat-value" />
+            </ui:VisualElement>
+            <ui:VisualElement class="stat-sub-item">
+                <ui:Label name="key-label" text="KEY: NO" class="stat-label" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:VisualElement>
+        <ui:VisualElement name="blackout-container" class="blackout-container" picking-mode="Ignore">
+            <ui:VisualElement name="blackout-top" class="blackout-part blackout-top" />
+            <ui:VisualElement name="blackout-bottom" class="blackout-part blackout-bottom" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

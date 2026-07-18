@@ -1,0 +1,28 @@
+Thumbs.db
+Desktop.ini
+.DS_Store
+*.swp
+
+/GeneratedAssets
+/Library
+/Logs
+/Recordings
+/Temp
+/UIElementsSchema
+/UserSettings
+
+/.utmp
+/mono_crash.*.json
+/Xcode
+/Web
+
+/*.app
+/*.exe
+/*.apk
+/*_DoNotShip
+/*.tgz
+
+/Assets/AI Toolkit/Temp.meta
+/Assets/AI Toolkit.meta
+/Assets/BuildReports
+/Assets/BuildReports.meta

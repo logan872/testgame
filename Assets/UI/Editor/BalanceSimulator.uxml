@@ -1,0 +1,54 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <ui:Style src="BalanceSimulator.uss" />
+    <ui:ScrollView class="scroll-view">
+        <ui:VisualElement class="root-container">
+            
+            <ui:VisualElement class="card">
+                <uie:ObjectField name="balanceDataField" label="Balance Data Asset" />
+            </ui:VisualElement>
+
+            <!-- WAVE SLIDER SECTION -->
+            <ui:VisualElement class="card">
+                <ui:SliderInt name="waveSlider" label="Target Wave" low-value="1" high-value="50" show-input-field="true" />
+            </ui:VisualElement>
+
+            <!-- WAVE BUDGET & COMPOSITION SECTION -->
+            <ui:VisualElement class="card">
+                <ui:VisualElement class="data-row">
+                    <ui:Label text="Wave Budget" class="data-label" />
+                    <ui:Label name="waveBudgetValue" text="0" class="data-value" />
+                </ui:VisualElement>
+                <ui:Label text="Example Party Composition:" class="data-label" style="margin-top: 4px;" />
+                <ui:Label name="partyCompositionText" text="None" class="party-composition" />
+            </ui:VisualElement>
+
+            <!-- PLAYER STATS SECTION -->
+            <ui:VisualElement class="card">
+                <ui:Label text="Estimated Player Stats" class="card-title" />
+                <ui:VisualElement class="data-row">
+                    <ui:Label text="Accumulated EXP" class="data-label" />
+                    <ui:Label name="cumulativeExpValue" text="0" class="data-value" />
+                </ui:VisualElement>
+                <ui:VisualElement class="data-row">
+                    <ui:Label text="Projected Level" class="data-label" />
+                    <ui:Label name="estLevelValue" text="1" class="data-value" />
+                </ui:VisualElement>
+                <ui:VisualElement class="data-row">
+                    <ui:Label text="HP" class="data-label" />
+                    <ui:Label name="playerHpValue" text="0" class="data-value" />
+                </ui:VisualElement>
+                <ui:VisualElement class="data-row">
+                    <ui:Label text="Attack" class="data-label" />
+                    <ui:Label name="playerAtkValue" text="0" class="data-value" />
+                </ui:VisualElement>
+                </ui:VisualElement>
+
+            <!-- MONSTER ANALYSIS SECTION -->
+            <ui:VisualElement class="card">
+                <ui:Label text="Monster vs Player Analysis" class="card-title" />
+                <ui:VisualElement name="monsterAnalysisList" />
+            </ui:VisualElement>
+
+        </ui:VisualElement>
+    </ui:ScrollView>
+</ui:UXML>

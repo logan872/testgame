@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+    <title>{{{ PRODUCT_NAME }}}</title>
+
+    <!-- Yandex Games SDK. Relative path required for games hosted via the Console upload
+         (recommended, and required to pass moderation). If you instead host on your own
+         domain via iframe integration, use the absolute path instead:
+         https://sdk.games.s3.yandex.net/sdk.js
+         See: https://yandex.ru/dev/games/doc/ru/sdk/sdk-about -->
+    <script src="/sdk.js"></script>
+
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        background: #000;
+        overflow: hidden;
+        overscroll-behavior: none;
+        touch-action: none;
+        -webkit-user-select: none;
+        user-select: none;
+      }
+      #unity-container {
+        width: 100%;
+        height: 100%;
+      }
+      #unity-canvas {
+        width: 100%;
+        height: 100%;
+        background: #000;
+        display: block;
+        touch-action: none;
+      }
+      #unity-loading-bar {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      #unity-progress-bar-empty {
+        width: 300px;
+        height: 18px;
+        margin-top: 10px;
+        border: 2px solid #fff;
+        border-radius: 9px;
+        overflow: hidden;
+      }
+      #unity-progress-bar-full {
+        width: 0%;
+        height: 100%;
+        background: #fff;
+        border-radius: 6px;
+      }
+    </style>
+  </head>
+  <body oncontextmenu="return false;">
+    <div id="unity-container">
+      <canvas id="unity-canvas" width="{{{ WIDTH }}}" height="{{{ HEIGHT }}}" tabindex="-1"></canvas>
+      <div id="unity-loading-bar">
+        <div id="unity-progress-bar-empty"><div id="unity-progress-bar-full"></div></div>
+      </div>
+    </div>
+
+    <script src="Build/{{{ LOADER_FILENAME }}}"></script>
+    <script>
+      // Requirement 1.6.2.7 / 1.6.1.8: interacting with the game field must never trigger
+      // text/field selection or a long-press context menu.
+      document.addEventListener("contextmenu", function (e) { e.preventDefault(); });
+      document.addEventListener("selectstart", function (e) { e.preventDefault(); });
+
+      // Requirement 1.10.2: no browser scroll / swipe-to-refresh on the page.
+      document.addEventListener("touchmove", function (e) { e.preventDefault(); }, { passive: false });
+      window.addEventListener("wheel", function (e) { e.preventDefault(); }, { passive: false });
+
+      var container = document.querySelector("#unity-container");
+      var canvas = document.querySelector("#unity-canvas");
+      var loadingBar = document.querySelector("#unity-loading-bar");
+      var progressBarFull = document.querySelector("#unity-progress-bar-full");
+
+      var buildUrl = "Build";
+      var config = {
+        dataUrl: buildUrl + "/{{{ DATA_FILENAME }}}",
+        frameworkUrl: buildUrl + "/{{{ FRAMEWORK_FILENAME }}}",
+        codeUrl: buildUrl + "/{{{ CODE_FILENAME }}}",
+#if MEMORY_FILENAME
+        memoryUrl: buildUrl + "/{{{ MEMORY_FILENAME }}}",
+#endif
+#if SYMBOLS_FILENAME
+        symbolsUrl: buildUrl + "/{{{ SYMBOLS_FILENAME }}}",
+#endif
+        streamingAssetsUrl: "StreamingAssets",
+        companyName: "{{{ COMPANY_NAME }}}",
+        productName: "{{{ PRODUCT_NAME }}}",
+        productVersion: "{{{ PRODUCT_VERSION }}}",
+      };
+
+      var loaderUrl = buildUrl + "/{{{ LOADER_FILENAME }}}";
+
+      createUnityInstance(canvas, config, function (progress) {
+        progressBarFull.style.width = 100 * progress + "%";
+      }).then(function (unityInstance) {
+        // Exposed on window so the YandexGamesSDK.jslib bridge can call SendMessage
+        // without depending on closures in this template.
+        window.unityInstance = unityInstance;
+        loadingBar.style.display = "none";
+      }).catch(function (message) {
+        alert(message);
+      });
+    </script>
+  </body>
+</html>

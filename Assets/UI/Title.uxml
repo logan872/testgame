@@ -1,0 +1,15 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/Title.uss" />
+    <ui:VisualElement name="root" class="screen">
+        <ui:VisualElement name="background" class="background background--intro" picking-mode="Ignore" />
+        <ui:VisualElement name="heroes-shadow" class="heroes heroes-shadow heroes--intro" picking-mode="Ignore" />
+        <ui:VisualElement name="heroes" class="heroes heroes--intro" picking-mode="Ignore" />
+        <ui:VisualElement name="logo" class="logo logo--intro" picking-mode="Ignore" />
+        <ui:VisualElement name="message-container" class="message-container" picking-mode="Ignore">
+            <ui:Label name="start-message" text="Click to Start Adventure" class="start-message" />
+        </ui:VisualElement>
+        <ui:Label name="version-label" text="v0.0.0" class="version-label" picking-mode="Ignore" />
+        <ui:Label name="best-wave-label" text="" class="best-wave-label" picking-mode="Ignore" />
+        <ui:VisualElement name="blackout" class="blackout" picking-mode="Ignore" />
+        </ui:VisualElement>
+        </ui:UXML>

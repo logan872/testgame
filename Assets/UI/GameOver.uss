@@ -1,0 +1,97 @@
+/*
+2026-05-03 AI-Tag
+This was created with the help of Assistant, a Unity Artificial Intelligence product.
+*/
+:root {
+    --color-message: rgb(173, 216, 230);
+    --font-main: url("project://database/Assets/UI/Pirata_One/PirataOne-Regular%20SDF.asset?fileID=11400000&guid=aab34c00bfc7d41b7b9bea53c4674488&type=2#PirataOne-Regular SDF");
+}
+
+.screen {
+    flex-grow: 1;
+    -unity-font-definition: var(--font-main);
+    /* 背景を透明にしてカメラ（Vignette付き）が見えるようにする */
+    background-color: rgba(0, 0, 0, 0);
+    justify-content: center;
+    align-items: center;
+}
+
+.main-content {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.hero-image {
+    width: 400px;
+    height: 400px;
+    background-image: url("project://database/Assets/Sprites/UI/GameOver_Heroes.png?fileID=21300000&guid=745f59e0e67d2476cb4135e5c655bfd2&type=3#GameOver_Heroes");
+    -unity-background-scale-mode: scale-to-fit;
+    margin-right: 40px;
+}
+
+.results-group {
+    align-items: flex-start;
+    background-color: rgba(0, 0, 0, 0.6);
+    border-width: 1.5px;
+    border-color: white;
+    border-radius: 20px;
+    padding: 20px 40px;
+}
+
+.result-label {
+    color: white;
+    font-size: 42px;
+    margin: 8px 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    -unity-font-definition: url("project://database/Assets/UI/Jersey_10/Jersey10-Regular SDF.asset");
+}
+
+.prompt-label {
+    color: var(--color-message);
+    font-size: 32px;
+    -unity-font-style: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: black;
+}
+
+.loss-message {
+    color: rgb(220, 20, 60);
+    font-size: 80px;
+    -unity-font-style: bold;
+    text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.9);
+    margin-bottom: 20px;
+    -unity-text-outline-width: 2px;
+    -unity-text-outline-color: black;
+    transition-property: opacity, scale;
+    transition-duration: 2s;
+    transition-timing-function: ease-out-back;
+    opacity: 0;
+    scale: 0.8;
+}
+
+.loss-message--visible {
+    opacity: 1;
+    scale: 1;
+}
+
+.blackout {
+position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    /* デフォルトは透明にして作業しやすくする */
+    opacity: 0;
+    transition-property: opacity;
+    transition-duration: 0.8s;
+    transition-timing-function: ease-in-out;
+}
+
+.blackout--active {
+    opacity: 1;
+}
