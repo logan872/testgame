@@ -132,6 +132,24 @@ public class CombatManager : MonoBehaviour
         "マッチの隣で「？」を爆破すると、その攻撃力が少しアップします。"
     };
 
+    private static readonly string[] TIPS_RU = new string[]
+    {
+        "Блоки «?» нельзя собрать в комбинацию. Кликните, чтобы разбить их, или соберите комбинацию рядом.",
+        "Разбив блок-предмет кликом, вы получите падающий сверху блок «?».",
+        "Уничтожив блок «?», вы получите падающий сверху блок-предмет.",
+        "Если застряли — разбивайте блоки «?» кликом, чтобы найти новые комбинации.",
+        "Собирайте комбинации щитов, чтобы блокировать физические атаки врагов.",
+        "Комбинация с волшебной палочкой бьёт сразу по всей группе врагов.",
+        "Запас щита не может превышать ваше максимальное здоровье.",
+        "Щиты не блокируют магические атаки врагов.",
+        "Для сундуков нужен ключ, но носить с собой можно только один.",
+        "Собирайте комбинации самоцветов, чтобы получать опыт.",
+        "Если собрать блоки лечения при полном здоровье, вы получите опыт.",
+        "Если собрать ключи, уже имея один, вы получите опыт.",
+        "Враги в заднем ряду атакуют медленнее.",
+        "Уничтожение блока «?» соседней комбинацией немного усиливает её эффект."
+    };
+
     private static int nextTipIndex = 0;
     private bool overlayClicked = false;
 
@@ -295,7 +313,7 @@ public class CombatManager : MonoBehaviour
         if (HUD == null) yield break;
         var root = HUD.rootVisualElement;
 
-        Label label = new Label("LEVEL UP!");
+        Label label = new Label(LocalizationManager.T("hud.level_up"));
         label.AddToClassList("center-message");
         label.AddToClassList("level-up-message");
         label.style.color = Color.cyan;
@@ -467,33 +485,33 @@ public class CombatManager : MonoBehaviour
         switch (type)
         {
             case CombatActionType.PlayerAttack:
-                text = $"Attack! {value} pts.";
+                text = LocalizationManager.T("hud.popup_attack", value);
                 color = Color.red;
                 break;
             case CombatActionType.PlayerMagicAttack:
-                text = $"Magic! {value} pts.";
+                text = LocalizationManager.T("hud.popup_magic", value);
                 color = new Color(0.6f, 0f, 0.8f);
                 break;
             case CombatActionType.PlayerHeal:
-                text = $"Heal! {value} pts.";
+                text = LocalizationManager.T("hud.popup_heal", value);
                 color = Color.green;
                 break;
             case CombatActionType.PlayerShield:
-                text = $"Shield! {value} pts.";
+                text = LocalizationManager.T("hud.popup_shield", value);
                 color = new Color(0.5f, 0.8f, 1f);
                 break;
             case CombatActionType.PlayerExp:
-                text = $"EXP! +{value}";
+                text = LocalizationManager.T("hud.popup_exp", value);
                 color = Color.cyan;
                 break;
             case CombatActionType.PlayerKey:
                 if (!HasKey)
                 {
-                    text = "Key Obtained!";
+                    text = LocalizationManager.T("hud.popup_key_obtained");
                 }
                 else
                 {
-                    text = $"Key! +{value} EXP";
+                    text = LocalizationManager.T("hud.popup_key_exp", value);
                 }
                 color = Color.yellow;
                 break;
@@ -838,7 +856,9 @@ public class CombatManager : MonoBehaviour
         if (nextTipIndex >= TIPS.Length) yield break;
         if (treasureOverlay == null || treasureMessage == null || treasureMessageJp == null) yield break;
 
-        string currentTip = TIPS[nextTipIndex];
+        string currentTip = LocalizationManager.CurrentLanguage == GameLanguage.Russian
+            ? TIPS_RU[nextTipIndex]
+            : TIPS[nextTipIndex];
         string currentTipJp = TIPS_JP[nextTipIndex];
         nextTipIndex++;
 

@@ -52,6 +52,9 @@ namespace YandexGames
         /// <summary>Whether an ad interrupted an active run and should resume GameplayAPI on close.</summary>
         private bool resumeGameplayAfterAd;
 
+        /// <summary>Whether the once-per-session launch ad has already been shown.</summary>
+        private bool launchAdShown;
+
         // Creates the manager automatically before the first scene loads, mirroring
         // the pattern used by PersistentSystemsLoader.
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
@@ -190,6 +193,15 @@ namespace YandexGames
 #if UNITY_WEBGL && !UNITY_EDITOR
             YandexSDK_GameplayStop();
 #endif
+        }
+
+        /// <summary>Shows a fullscreen interstitial ad once per session, meant to be called
+        /// when the title screen first appears. Safe to call repeatedly - only fires once.</summary>
+        public void ShowLaunchAdIfNeeded()
+        {
+            if (launchAdShown) return;
+            launchAdShown = true;
+            ShowInterstitialAd();
         }
 
         /// <summary>Shows a fullscreen interstitial ad, e.g. between runs on the Game Over screen.</summary>

@@ -48,6 +48,25 @@ public class TitleScreenController : MonoBehaviour
 
         // Play Title SE after a short delay to ensure AudioManager is loaded
         StartCoroutine(PlayTitleSEWithDelay());
+
+        // Show a launch ad (once per session) once the title screen is up.
+        StartCoroutine(ShowLaunchAdRoutine());
+    }
+
+    private IEnumerator ShowLaunchAdRoutine()
+    {
+        // Let the intro animation play out first so the ad doesn't cut it off instantly.
+        yield return new WaitForSeconds(1.0f);
+
+        // Wait briefly for the SDK to finish initializing (it usually already has by now).
+        float timeout = 4f;
+        while (YandexGamesManager.Instance != null && !YandexGamesManager.Instance.IsInitialized && timeout > 0f)
+        {
+            timeout -= Time.deltaTime;
+            yield return null;
+        }
+
+        YandexGamesManager.Instance?.ShowLaunchAdIfNeeded();
     }
 
     private void ApplyLocalizedText()

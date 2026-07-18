@@ -72,6 +72,46 @@ namespace YandexGames
                 [GameLanguage.English] = "MONSTERS APPROACH!",
                 [GameLanguage.Russian] = "ПРИБЛИЖАЮТСЯ МОНСТРЫ!",
             },
+            ["hud.level_up"] = new()
+            {
+                [GameLanguage.English] = "LEVEL UP!",
+                [GameLanguage.Russian] = "НОВЫЙ УРОВЕНЬ!",
+            },
+            ["hud.popup_attack"] = new()
+            {
+                [GameLanguage.English] = "Attack! {0} pts.",
+                [GameLanguage.Russian] = "Атака! {0} оч.",
+            },
+            ["hud.popup_magic"] = new()
+            {
+                [GameLanguage.English] = "Magic! {0} pts.",
+                [GameLanguage.Russian] = "Магия! {0} оч.",
+            },
+            ["hud.popup_heal"] = new()
+            {
+                [GameLanguage.English] = "Heal! {0} pts.",
+                [GameLanguage.Russian] = "Лечение! {0} оч.",
+            },
+            ["hud.popup_shield"] = new()
+            {
+                [GameLanguage.English] = "Shield! {0} pts.",
+                [GameLanguage.Russian] = "Щит! {0} оч.",
+            },
+            ["hud.popup_exp"] = new()
+            {
+                [GameLanguage.English] = "EXP! +{0}",
+                [GameLanguage.Russian] = "ОПЫТ! +{0}",
+            },
+            ["hud.popup_key_obtained"] = new()
+            {
+                [GameLanguage.English] = "Key Obtained!",
+                [GameLanguage.Russian] = "Ключ получен!",
+            },
+            ["hud.popup_key_exp"] = new()
+            {
+                [GameLanguage.English] = "Key! +{0} EXP",
+                [GameLanguage.Russian] = "Ключ! +{0} опыта",
+            },
             ["hud.hp_label"] = new()
             {
                 [GameLanguage.English] = "HP:",
