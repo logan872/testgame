@@ -44,7 +44,11 @@ public class StartHintController : MonoBehaviour
 
     private void ApplyLocalizedText()
     {
-        if (hintText != null) hintText.text = LocalizationManager.T("hud.hint");
+        if (hintText != null)
+        {
+            hintText.text = LocalizationManager.T("hud.hint");
+            LocalizationManager.ApplyFont(hintText);
+        }
     }
 
     private void OnDestroy()

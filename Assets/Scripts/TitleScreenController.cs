@@ -71,12 +71,17 @@ public class TitleScreenController : MonoBehaviour
 
     private void ApplyLocalizedText()
     {
-        if (startMessage != null) startMessage.text = LocalizationManager.T("title.start_message");
+        if (startMessage != null)
+        {
+            startMessage.text = LocalizationManager.T("title.start_message");
+            LocalizationManager.ApplyFont(startMessage);
+        }
 
         if (bestWaveLabel != null)
         {
             int best = GameProgress.GetBestWave();
             bestWaveLabel.text = best > 0 ? LocalizationManager.T("title.best_wave", best) : "";
+            LocalizationManager.ApplyFont(bestWaveLabel);
         }
     }
 

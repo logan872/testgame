@@ -49,6 +49,12 @@ This was created with the help of Assistant, a Unity Artificial Intelligence pro
     -unity-font-definition: url("project://database/Assets/UI/Jersey_10/Jersey10-Regular SDF.asset");
 }
 
+/* Jersey 10 / Pirata One have no Cyrillic glyphs; DotGothic16 does. Toggled from
+   C# via VisualElement.EnableInClassList("lang-ru", ...). */
+.lang-ru {
+    -unity-font-definition: url("project://database/Assets/UI/DotGothic16/DotGothic16-Regular SDF.asset") !important;
+}
+
 .prompt-label {
     color: var(--color-message);
     font-size: 32px;

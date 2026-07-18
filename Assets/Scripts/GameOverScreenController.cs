@@ -66,6 +66,13 @@ public class GameOverScreenController : MonoBehaviour
         if (waveResult != null) waveResult.text = LocalizationManager.T("gameover.wave", GameResults.WavesWon);
         if (bestWaveResult != null) bestWaveResult.text = LocalizationManager.T("gameover.best_wave", bestWave);
         if (promptLabel != null) promptLabel.text = LocalizationManager.T("gameover.prompt");
+
+        LocalizationManager.ApplyFont(lossMessage);
+        LocalizationManager.ApplyFont(levelResult);
+        LocalizationManager.ApplyFont(expResult);
+        LocalizationManager.ApplyFont(waveResult);
+        LocalizationManager.ApplyFont(bestWaveResult);
+        LocalizationManager.ApplyFont(promptLabel);
     }
 
     private void OnDisable()

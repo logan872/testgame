@@ -276,6 +276,11 @@ public class CombatManager : MonoBehaviour
         if (shieldLabel != null) shieldLabel.text = LocalizationManager.T("hud.shield_label");
         if (expLabel != null) expLabel.text = LocalizationManager.T("hud.exp_label");
         if (keyLabel != null) keyLabel.text = LocalizationManager.T(HasKey ? "hud.key_yes" : "hud.key_no");
+
+        LocalizationManager.ApplyFont(hpLabel);
+        LocalizationManager.ApplyFont(shieldLabel);
+        LocalizationManager.ApplyFont(expLabel);
+        LocalizationManager.ApplyFont(keyLabel);
     }
 
     public void AddExperience(int amount)
@@ -317,6 +322,7 @@ public class CombatManager : MonoBehaviour
         label.AddToClassList("center-message");
         label.AddToClassList("level-up-message");
         label.style.color = Color.cyan;
+        LocalizationManager.ApplyFont(label);
         root.Add(label);
 
         // Small delay to allow UITK to pick up the initial state for transition
@@ -347,7 +353,11 @@ public class CombatManager : MonoBehaviour
         if (hpText != null) hpText.text = $"{CurrentHP}/{MaxHP}";
         if (shieldText != null) shieldText.text = Shield.ToString();
         if (expText != null) expText.text = Experience.ToString();
-        if (keyLabel != null) keyLabel.text = LocalizationManager.T(HasKey ? "hud.key_yes" : "hud.key_no");
+        if (keyLabel != null)
+        {
+            keyLabel.text = LocalizationManager.T(HasKey ? "hud.key_yes" : "hud.key_no");
+            LocalizationManager.ApplyFont(keyLabel);
+        }
     }
 
     public void ShowCenterMessage(string text, Color color)
@@ -355,7 +365,7 @@ public class CombatManager : MonoBehaviour
         StartCoroutine(ShowCenterMessageRoutine(text, color));
     }
 
-    private IEnumerator ShowCenterMessageRoutine(string text, Color color)
+    private IEnumerator ShowCenterMessageRoutine(string text, Color color, SEType? sound = null)
     {
         if (HUD == null) yield break;
         var root = HUD.rootVisualElement;
@@ -363,13 +373,12 @@ public class CombatManager : MonoBehaviour
         Label label = new Label(text);
         label.AddToClassList("center-message");
         label.style.color = color;
+        LocalizationManager.ApplyFont(label);
         root.Add(label);
 
-        // Play SE based on text
-        if (AudioManager.Instance != null)
+        if (sound.HasValue && AudioManager.Instance != null)
         {
-            if (text.Contains("MONSTERS")) AudioManager.Instance.PlaySE(SEType.Approach);
-            else if (text.Contains("VICTORY")) AudioManager.Instance.PlaySE(SEType.Victory);
+            AudioManager.Instance.PlaySE(sound.Value);
         }
 
         // Small delay to allow UITK to pick up the initial state for transition
@@ -387,7 +396,7 @@ public class CombatManager : MonoBehaviour
     private IEnumerator Start()
     {
         yield return new WaitForSeconds(1.0f);
-        yield return StartCoroutine(ShowCenterMessageRoutine(LocalizationManager.T("hud.monsters_approach"), new Color(1f, 0.4f, 0.2f)));
+        yield return StartCoroutine(ShowCenterMessageRoutine(LocalizationManager.T("hud.monsters_approach"), new Color(1f, 0.4f, 0.2f), SEType.Approach));
 
         yield return StartCoroutine(SpawnWaveSequentially());
         StartCoroutine(QueueProcessor());
@@ -519,6 +528,7 @@ public class CombatManager : MonoBehaviour
 
         label.text = text;
         label.style.color = color;
+        LocalizationManager.ApplyFont(label);
         notificationLayer.Add(label);
 
         StartCoroutine(AnimateNotification(label));
@@ -838,7 +848,7 @@ public class CombatManager : MonoBehaviour
     private IEnumerator HandleWaveClear()
     {
         yield return new WaitForSeconds(0.8f);
-        yield return StartCoroutine(ShowCenterMessageRoutine(LocalizationManager.T("hud.victory"), new Color(1f, 0.8f, 0.2f)));
+        yield return StartCoroutine(ShowCenterMessageRoutine(LocalizationManager.T("hud.victory"), new Color(1f, 0.8f, 0.2f), SEType.Victory));
 
         // Use configured spawn chance
         if (Random.value < TreasureSpawnChance)
@@ -873,6 +883,7 @@ public class CombatManager : MonoBehaviour
         if (tipIcon != null) tipIcon.style.display = DisplayStyle.Flex;
         if (dialogueBox != null) dialogueBox.AddToClassList("dialogue-box--tip");
         treasureMessage.text = currentTip;
+        LocalizationManager.ApplyFont(treasureMessage);
         treasureMessageJp.text = currentTipJp;
         treasureMessageJp.style.display = DisplayStyle.Flex;
 
@@ -935,6 +946,7 @@ public class CombatManager : MonoBehaviour
         }
 
         treasureMessage.text = LocalizationManager.T("hud.chest_found");
+        LocalizationManager.ApplyFont(treasureMessage);
         treasureMessageJp.text = "";
         treasureMessageJp.style.display = DisplayStyle.None;
         if (dialogueBox != null) dialogueBox.style.opacity = 1;
@@ -969,6 +981,7 @@ public class CombatManager : MonoBehaviour
 
             // Sync fade in for both dialogue box (with new message) and open chest
             treasureMessage.text = LocalizationManager.T("hud.chest_unlocked");
+            LocalizationManager.ApplyFont(treasureMessage);
             treasureMessageJp.text = "";
             treasureMessageJp.style.display = DisplayStyle.None;
             treasureImage.style.opacity = 1;
@@ -983,6 +996,7 @@ public class CombatManager : MonoBehaviour
             yield return StartCoroutine(WaitForSecondsOrClick(0.3f));
 
             treasureMessage.text = LocalizationManager.T("hud.chest_no_key");
+            LocalizationManager.ApplyFont(treasureMessage);
             treasureMessageJp.text = "";
             treasureMessageJp.style.display = DisplayStyle.None;
             if (dialogueBox != null) dialogueBox.style.opacity = 1;
@@ -1003,7 +1017,7 @@ public class CombatManager : MonoBehaviour
     private IEnumerator SpawnWaveWithDelay()
     {
         yield return new WaitForSeconds(1.0f);
-        yield return StartCoroutine(ShowCenterMessageRoutine(LocalizationManager.T("hud.monsters_approach"), new Color(1f, 0.4f, 0.2f)));
+        yield return StartCoroutine(ShowCenterMessageRoutine(LocalizationManager.T("hud.monsters_approach"), new Color(1f, 0.4f, 0.2f), SEType.Approach));
         yield return StartCoroutine(SpawnWaveSequentially());
     }
 

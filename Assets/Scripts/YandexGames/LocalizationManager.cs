@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace YandexGames
 {
@@ -204,6 +205,16 @@ namespace YandexGames
                 default:
                     return GameLanguage.English;
             }
+        }
+
+        /// <summary>
+        /// Toggles the "lang-ru" USS class on an element, which swaps in a font with
+        /// Cyrillic glyphs (the game's default pixel/fantasy fonts - Jersey 10, Pirata One -
+        /// don't have any). Call this alongside every place that sets localized text.
+        /// </summary>
+        public static void ApplyFont(VisualElement element)
+        {
+            element?.EnableInClassList("lang-ru", CurrentLanguage == GameLanguage.Russian);
         }
 
         /// <summary>Returns the localized string for <paramref name="key"/>, formatted with <paramref name="args"/> if provided.</summary>

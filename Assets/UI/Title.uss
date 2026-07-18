@@ -12,6 +12,12 @@
     align-items: center;
 }
 
+/* Pirata One has no Cyrillic glyphs; DotGothic16 does. Toggled from C# via
+   VisualElement.EnableInClassList("lang-ru", ...). */
+.lang-ru {
+    -unity-font-definition: url("project://database/Assets/UI/DotGothic16/DotGothic16-Regular SDF.asset") !important;
+}
+
 .background {
     position: absolute;
     width: 100%;
