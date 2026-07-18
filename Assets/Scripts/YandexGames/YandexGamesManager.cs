@@ -95,10 +95,13 @@ namespace YandexGames
         {
             IsInitialized = true;
             IsAvailable = true;
+            Debug.Log("[YandexGames] SDK initialized successfully.");
 
 #if UNITY_WEBGL && !UNITY_EDITOR
             // Requirement 2.14: auto language detection through the SDK.
-            LocalizationManager.SetLanguageFromCode(YandexSDK_GetLang());
+            string langCode = YandexSDK_GetLang();
+            Debug.Log($"[YandexGames] ysdk.environment.i18n.lang = '{langCode}'");
+            LocalizationManager.SetLanguageFromCode(langCode);
             // Requirement 1.3 / 1.19.4: stop sound on tab hide, react to platform pause/resume.
             YandexSDK_RegisterVisibilityHandler(gameObject.name);
 #endif

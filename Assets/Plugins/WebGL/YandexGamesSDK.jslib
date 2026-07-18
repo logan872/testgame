@@ -1,9 +1,9 @@
 // Yandex Games SDK bridge.
-// Talks to the `YaGames` global that is loaded via <script src="https://yandex.ru/games/sdk/v2">
-// in the WebGL template (Assets/WebGLTemplates/YandexGames/index.html), and forwards
+// Talks to the `YaGames` global that is loaded via <script src="/sdk.js"> in the
+// WebGL template (Assets/WebGLTemplates/YandexGames/index.html), and forwards
 // results back into Unity via SendMessage.
 //
-// Docs: https://yandex.ru/dev/games/doc/en/sdk/sdk-about
+// Docs: https://yandex.ru/dev/games/doc/ru/sdk/sdk-about
 
 mergeInto(LibraryManager.library, {
 
@@ -27,6 +27,7 @@ mergeInto(LibraryManager.library, {
 
     YaGames.init().then(function (ysdk) {
       window.__ysdk = ysdk;
+      console.log('[YandexGamesSDK] Initialized. environment:', ysdk.environment);
       sendToUnity('OnSDKInitialized', '');
     }).catch(function (err) {
       console.error('[YandexGamesSDK] Init failed', err);
@@ -104,7 +105,10 @@ mergeInto(LibraryManager.library, {
     var lang = 'en';
     if (window.__ysdk && window.__ysdk.environment && window.__ysdk.environment.i18n) {
       lang = window.__ysdk.environment.i18n.lang || 'en';
+    } else {
+      console.warn('[YandexGamesSDK] environment.i18n not available, defaulting to en. ysdk:', window.__ysdk);
     }
+    console.log('[YandexGamesSDK] Detected language:', lang);
     var bufferSize = lengthBytesUTF8(lang) + 1;
     var buffer = _malloc(bufferSize);
     stringToUTF8(lang, buffer, bufferSize);

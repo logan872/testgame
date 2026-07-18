@@ -173,6 +173,8 @@ namespace YandexGames
         public static void SetLanguageFromCode(string languageCode)
         {
             var lang = ResolveLanguage(languageCode);
+            Debug.Log($"[Localization] Received code '{languageCode}' -> resolved to {lang} (current: {CurrentLanguage})");
+
             if (lang == CurrentLanguage) return;
 
             CurrentLanguage = lang;
@@ -183,9 +185,15 @@ namespace YandexGames
         {
             if (string.IsNullOrEmpty(code)) return GameLanguage.English;
 
+            // Some environments report region-tagged codes (e.g. "ru-RU"); only the
+            // primary subtag before '-' or '_' matters here.
+            string primary = code.Trim().ToLowerInvariant();
+            int separatorIndex = primary.IndexOfAny(new[] { '-', '_' });
+            if (separatorIndex > 0) primary = primary.Substring(0, separatorIndex);
+
             // Recommended minimal localization per Yandex Games requirement 2.10:
             // Russian for ru/be/kk/uk/uz, English for every other locale.
-            switch (code.Trim().ToLowerInvariant())
+            switch (primary)
             {
                 case "ru":
                 case "be":
